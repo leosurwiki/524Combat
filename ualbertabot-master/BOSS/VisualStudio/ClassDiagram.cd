@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BOSS::ActionSet" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFAAAAAAAAAAAAAEQIAAAAAAAAEAAAAAAAAAMAACQAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\ActionSet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::Vec&lt;T, max_capacity&gt;" Collapsed="true">
+    <Position X="14.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFAAAAECAAAAIAAEEIMQRAQSEBEAAAABAQ0BAAIAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\Array.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::BuildOrder" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAYIAEgAAIABACACAAEBAABACAUAAAACQAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BuildOrder.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::Rectangle" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAgAAAAAAAAAAIAEAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BuildOrderPlot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::BuildOrderPlot" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAgAAAAgBgIChAAABAgIACAABEAAEABAIAAQBMAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BuildOrderPlot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::ActionCountPair" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAACAgAAEAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\PrerequisiteSet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::PrerequisiteSet" Collapsed="true">
+    <Position X="16.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAEQIAABAQAAAQAAAAQAAAAAAACQAQ=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\PrerequisiteSet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::Timer" Collapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAIyEAAAABCAAIAgAACAAAAAAEAEACA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\Timer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::Position" Collapsed="true">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAANACQAQAAgAwAAAQACAgQAAAAACABgAAACAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\Position.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::BuildOrderSearchGoal" Collapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAABAACIAAABBQAAEAEgAQAAAKAAAAAAgCE=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BuildOrderSearchGoal.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearch_BestResponse" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAABAABAAAAAAAAAAKAAAAAAAAAAEAAAAAAAAAQAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch_BestResponse.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearch_BestResponseData" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEABAhAAQAAAAAACAEgAAAJAAAAEAAAAAAAAUAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch_BestResponseData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearch_Bucket" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAABAAAAAAAAAACAAAAAAAAAAECAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch_Bucket.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::BucketData" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAIAAIAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch_BucketData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearch_BucketData" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAQgAACAAAAAIAAAAAAAAAAAAAABAAAAAAKAEAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch_BucketData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::IntegralData" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAABAAAAAAAAAAAAAAABACAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch_IntegralData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearch_IntegralData" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgABAAAAAAAAAAAQAAIBAQAAEAAAAAAAAAAAEAAQ=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch_IntegralData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearch_Integral" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAABABAAAAAAAAAAAAAAAAAAAEAQAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch_Integral.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearch" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBgABAAABAAAAACCBEAAACAAAAEQAACAAAAoAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearchParameters" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQACICQiBgAEAIgKEGIFEAAAQAC0AOEEIIBDUIAIgA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearchParameters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::CombatSearchResults" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAhAAAACEEAIAAIAAMAABAAAAAKAABJAgAAAAAAQA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\CombatSearchResults.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::DFBB_BuildOrderSearchParameters" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAsEAAAAAAAIAgAAIJAEAAAAAQAIkAAIEAAJAIgk=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\DFBB_BuildOrderSearchParameters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::DFBB_BuildOrderSearchResults" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhAAAACAAAAAAIAAAAABBAAAAKAABACAAAAEAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\DFBB_BuildOrderSearchResults.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::DFBB_BuildOrderSearchSaveState" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAACAAAAAAAQAAAAAEAAAEAAAAJAAAAIAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\DFBB_BuildOrderSearchSaveState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::DFBB_BuildOrderSmartSearch" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYACkAQAIBAAAAggAACEAAEAAAAVUSAECAAAAoIAAQ=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\DFBB_BuildOrderSmartSearch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::StackData" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIEAAAAAAAAAACEAAAABEAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\DFBB_BuildOrderStackSearch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::DFBB_BuildOrderStackSearch" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAIAkAAgAAAAAgAACCBAAAAAAAAAAUEACCsAAoAABA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\DFBB_BuildOrderStackSearch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::NaiveBuildOrderSearch" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgIAAAAAAAAABCAAAAAAACAEgAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\NaiveBuildOrderSearch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::ActionInProgress" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAggAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\ActionInProgress.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::ActionsInProgress" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAIAAAEAAAQAAQYAAABAAAAEAISAAgAAQAAEAQAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\ActionInProgress.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::ActionType" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAiAAFAIIFAwoEIAFFAAaBQAQACEAAjCSAkAAACBQE=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\ActionType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::ActionTypeData" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UBAoAElYFIE6UpEIQNEABaR8YSqHAAgnCQCnBCDKPYE=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\ActionTypeData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::BuildingStatus" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAADAgAAACQAABAABAAAAAAgIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BuildingData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::BuildingData" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAgAAIgAAAAAAAIMABAAAACEEIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BuildingData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::ActionPerformed" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAQAAAAAEAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\GameState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::GameState" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACEARQAQAVNQAgEADQiJEgACABgBHgWCCANAAAANEo=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\GameState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::Hatchery" Collapsed="true">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQBAAAAAAAAACAAAAAAEAACAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\HatcheryData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::HatcheryData" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAIAAAAAAAAIAAJAAAAIAAAAGAAAAAAEAAAAABAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\HatcheryData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::UnitData" Collapsed="true">
+    <Position X="12.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQEAAQcAJcCAhCQCRJQAAAMABsMSCBAWBAQQAhBMA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\UnitData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::GraphViz::Property" Collapsed="true">
+    <Position X="18" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAQAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\GraphViz.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::GraphViz::Node" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAQAAAAAAACEAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\GraphViz.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::GraphViz::Edge" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAQAAAAAAACABAAAAAAAAAAAIAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\GraphViz.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::GraphViz::Graph" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAABAIAIAAAAAAQAAAAAAACEAAgAAAgAAAAAIAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\GraphViz.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BOSS::Assert::BOSSException" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAACAAAAAAAAAAAAAAQAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BOSSAssert.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="BOSS::ResourceCountType" Collapsed="true">
+    <Position X="16.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BaseTypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BOSS::SupplyCountType" Collapsed="true">
+    <Position X="7.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BaseTypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BOSS::FrameCountType" Collapsed="true">
+    <Position X="9.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BaseTypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BOSS::UnitCountType" Collapsed="true">
+    <Position X="9.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BaseTypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BOSS::ActionID" Collapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BaseTypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BOSS::RaceID" Collapsed="true">
+    <Position X="14.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\BaseTypes.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PositionType" Collapsed="true">
+    <Position X="12.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\Position.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BOSS::ResourcePair" Collapsed="true">
+    <Position X="18" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\GameState.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BOSS::FramePair" Collapsed="true">
+    <Position X="11" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\GameState.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="BOSS::Races::__unnamed_enum_00cf_1" Collapsed="true">
+    <Position X="7.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAABAAAAAAAAAAAABAAAABAAAAAAAAAEAAAA=</HashCode>
+      <FileName>C:\Users\leosu_000\Downloads\ualbertabot-master\BOSS\source\Constants.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
