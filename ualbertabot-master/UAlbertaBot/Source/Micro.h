@@ -5,8 +5,17 @@
 
 namespace UAlbertaBot
 {
+	struct PairEdge;
+	struct PairEdge
+	{
+		BWAPI::Unit attacker;
+		BWAPI::Unit target;
+		double distance;
+		bool operator < (const PairEdge& that) const;
+	};
 namespace Micro
-{      
+{
+
     void SmartAttackUnit(BWAPI::Unit attacker, BWAPI::Unit target);
     void SmartAttackMove(BWAPI::Unit attacker, const BWAPI::Position & targetPosition);
     void SmartMove(BWAPI::Unit attacker, const BWAPI::Position & targetPosition);

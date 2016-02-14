@@ -6,14 +6,6 @@
 namespace UAlbertaBot
 {
 class MicroManager;
-struct PairEdge;
-struct PairEdge
-{
-	BWAPI::Unit attacker;
-	BWAPI::Unit target;
-	double distance;
-	bool operator < (const PairEdge& that) const;
-};
 class MeleeManager : public MicroManager
 {
 
@@ -35,6 +27,6 @@ public:
 	bool compareTwoTargets(BWAPI::Unit attacker, BWAPI::Unit target1, BWAPI::Unit target2);
 	int myMicroConstruct(const BWAPI::Unitset & attackers, const BWAPI::Unitset & targets);
 	bool formSquad(const BWAPI::Unitset & targets);
-
+	std::unordered_map<BWAPI::Unit, BWAPI::Unit> assignEnemy(const BWAPI::Unitset &,const BWAPI::Unitset & );
 };
 }

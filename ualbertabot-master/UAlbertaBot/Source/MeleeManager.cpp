@@ -77,27 +77,17 @@ void MeleeManager::executeMicro(const BWAPI::Unitset & targets)
 		assignTargetsOld(targets);
 	}
 }
-
-void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
+//get real priority
+double MeleeManager::getRealPriority(BWAPI::Unit attacker, BWAPI::Unit target)
 {
-    const BWAPI::Unitset & meleeUnits = getUnits();
-
-	// figure out targets
-	BWAPI::Unitset meleeUnitTargets;
-	for (auto & target : targets) 
-	{
-		// conditions for targeting
-		if (!(target->getType().isFlyer()) && 
-			!(target->isLifted()) &&
-			!(target->getType() == BWAPI::UnitTypes::Zerg_Larva) && 
-			!(target->getType() == BWAPI::UnitTypes::Zerg_Egg) &&
-			!(target->getType() == BWAPI::UnitTypes::Buildings)&&
-			(target->isTargetable())&&
-			target->isVisible()) 
-		{
-			meleeUnitTargets.insert(target);
-		}
-	}
+	int groundWeaponRange = attacker->getType().groundWeapon().maxRange();
+	int distA2T = std::max(0, attacker->getDistance(target) - groundWeaponRange);
+	double Health = (((double)target->getHitPoints() + target->getShields()));
+	return getAttackPriority(attacker, target)*exp(-distA2T / 5) / (Health + 160);
+}
+//assign the right enemy
+std::unordered_map<BWAPI::Unit, BWAPI::Unit> MeleeManager::assignEnemy(const BWAPI::Unitset &meleeUnits, const BWAPI::Unitset & meleeUnitTargets)
+{
 	std::unordered_map<BWAPI::Unit, BWAPI::Unit> attacker2target;
 	std::vector<PairEdge> edges(meleeUnits.size()*meleeUnitTargets.size());
 	int top = 0;
@@ -112,14 +102,14 @@ void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
 			edges[top].attacker = attacker;
 			edges[top].target = target;
 			int groundWeaponRange = attacker->getType().groundWeapon().maxRange();
-			edges[top++].distance = -getRealPriority(attacker,target);
+			edges[top++].distance = -getRealPriority(attacker, target);
 		}
 	}
 	centerOfAttackers.x /= meleeUnits.size();
 	centerOfAttackers.y /= meleeUnits.size();
 	BWAPI::Broodwar->drawCircleMap(centerOfAttackers, 20, BWAPI::Colors::Brown, true);
 	sort(edges.begin(), edges.end());
-	edges.resize(edges.size()/12);
+	edges.resize(edges.size() / 12);
 	sort(edges.begin(), edges.end(), [](PairEdge a, PairEdge b)
 	{
 		return (int)a.target < (int)b.target;
@@ -146,10 +136,10 @@ void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
 		}
 	}
 	for (bool halt = true; halt == false; halt = true)
-	{	
+	{
 		auto tmpRangeStart = edges.begin();
 		auto maxRangeStart = tmpRangeStart, maxRangeEnd = tmpRangeStart;
-		double tmpsum = 0,tmpres = INT_MIN;
+		double tmpsum = 0, tmpres = INT_MIN;
 		for (auto idx = edges.begin(); idx->target != nullptr; idx++)
 		{
 			if (attacker2target.find(idx->attacker) != attacker2target.end())
@@ -163,10 +153,10 @@ void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
 					maxRangeEnd = idx + 1;
 				}
 				tmpsum = 0;
-				tmpRangeStart = idx+1;
+				tmpRangeStart = idx + 1;
 			}
 			else
-				tmpsum+=getRealPriority(idx->attacker,idx->target);
+				tmpsum += getRealPriority(idx->attacker, idx->target);
 		}
 		for (auto kdx = maxRangeStart; kdx != maxRangeEnd; kdx++)
 		{
@@ -174,9 +164,31 @@ void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
 				continue;
 			attacker2target[kdx->attacker] = kdx->target;
 			halt = false;
-		}	
+		}
 	}
+	return attacker2target;
+}
+void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
+{
+    const BWAPI::Unitset & meleeUnits = getUnits();
 
+	// figure out targets
+	BWAPI::Unitset meleeUnitTargets;
+	for (auto & target : targets) 
+	{
+		// conditions for targeting
+		if (!(target->getType().isFlyer()) && 
+			!(target->isLifted()) &&
+			!(target->getType() == BWAPI::UnitTypes::Zerg_Larva) && 
+			!(target->getType() == BWAPI::UnitTypes::Zerg_Egg) &&
+			!(target->getType() == BWAPI::UnitTypes::Buildings)&&
+			(target->isTargetable())&&
+			target->isVisible()) 
+		{
+			meleeUnitTargets.insert(target);
+		}
+	}
+	std::unordered_map<BWAPI::Unit, BWAPI::Unit> attacker2target = assignEnemy(meleeUnits,meleeUnitTargets);
 	// for each meleeUnit
 	for (auto & meleeUnit : meleeUnits)
 	{
@@ -187,8 +199,8 @@ void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
 			if (meleeUnitShouldRetreat(meleeUnit, targets) && meleeUnit->isUnderAttack())
             {
                 BWAPI::Position fleeTo(centerOfAttackers);
-				fleeTo.x = (-fleeTo.x + meleeUnit->getPosition().x*14) / 15;
-				fleeTo.y = (-fleeTo.y + meleeUnit->getPosition().y*14) / 15;
+				fleeTo.x = (-fleeTo.x + meleeUnit->getPosition().x*19) / 20;
+				fleeTo.y = (-fleeTo.y + meleeUnit->getPosition().y*19) / 20;
                 Micro::SmartMove(meleeUnit, fleeTo);
             }
 			// if there are targets
@@ -214,9 +226,6 @@ void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
 				}
 			}
 		}
-		std::vector<PairEdge> edges;
-
-
 		if (Config::Debug::DrawUnitTargetInfo)
 		{
 			BWAPI::Broodwar->drawLineMap(meleeUnit->getPosition().x, meleeUnit->getPosition().y, 
@@ -262,14 +271,7 @@ BWAPI::Unit MeleeManager::getTarget(BWAPI::Unit meleeUnit, const BWAPI::Unitset 
 
 	return bestTarget;
 }
-//get real priority
-double MeleeManager::getRealPriority(BWAPI::Unit attacker, BWAPI::Unit target)
-{
-	int groundWeaponRange = attacker->getType().groundWeapon().maxRange();
-	int distA2T = std::max(0,attacker->getDistance(target) - groundWeaponRange);
-	double Health = (((double)target->getHitPoints() + target ->getShields()));
-	return getAttackPriority(attacker, target)*exp(-distA2T / 5)/(Health+160);
-}
+
 	// get the attack priority of a type in relation to a zergling
 int MeleeManager::getAttackPriority(BWAPI::Unit attacker, BWAPI::Unit unit) 
 {
@@ -370,9 +372,10 @@ bool MeleeManager::meleeUnitShouldRetreat(BWAPI::Unit meleeUnit, const BWAPI::Un
     for (auto & unit : targets)
     {
         int groundWeaponRange = unit->getType().groundWeapon().maxRange();
-        if (groundWeaponRange >= 64 && unit->getDistance(meleeUnit) < groundWeaponRange)
+        if (groundWeaponRange >= 64 )
         {
-            return false;
+			//the possibility of retreat from rangeunits is determined by their distance and weaponrange
+			return rand() % 100<std::max(0,100-((int) unit->getDistance(meleeUnit) - groundWeaponRange));
         }
     }
 

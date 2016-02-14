@@ -8,7 +8,7 @@ namespace UAlbertaBot
 class RangedManager : public MicroManager
 {
 public:
-
+	BWAPI::Position centerOfAttackers;
 	RangedManager();
 	void executeMicro(const BWAPI::Unitset & targets);
 
@@ -18,6 +18,7 @@ public:
 
 	int getAttackPriority(BWAPI::Unit rangedUnit, BWAPI::Unit target);
 	double getRealPriority(BWAPI::Unit attacker, BWAPI::Unit target);
+	std::unordered_map<BWAPI::Unit, BWAPI::Unit> assignEnemy(const BWAPI::Unitset &meleeUnits, const BWAPI::Unitset & meleeUnitTargets);
 	BWAPI::Unit getTarget(BWAPI::Unit rangedUnit, const BWAPI::Unitset & targets);
 
     void assignTargetsNew(const BWAPI::Unitset & targets);
