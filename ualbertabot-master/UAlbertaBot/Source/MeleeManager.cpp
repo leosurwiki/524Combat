@@ -12,70 +12,16 @@ MeleeManager::MeleeManager()
 { 
 
 }
-static int framelatency = 0;
-
-bool MeleeManager::formSquad(const BWAPI::Unitset & targets)
-{
-	const BWAPI::Unitset & meleeUnits = getUnits();
-	int size = meleeUnits.size();
-	bool attacked = false;
-	BWAPI::Position tpos = targets.getPosition();
-	BWAPI::Position mpos = meleeUnits.getPosition();
-
-	for (auto & unit : meleeUnits)
-	{
-		if (unit->isUnderAttack() || unit->isAttackFrame() || targets.size() == 0 )attacked = true;
-	}
-	if (attacked) return true;
-	BWAPI::Broodwar->drawTextScreen(200, 350, "%s", " not under attack, form squad");
-
-	int framelatency = 0;
-	const double PI = 3.14159265;
-	int i = -10;
-
-	//int cir_x = (4 * mpos.x + tpos.x) / 5;
-	//int cir_y = (4 * mpos.y + tpos.y) / 5;
-	int cir_x = order.getPosition().x;
-	int cir_y = order.getPosition().y;
-	framelatency++;
-	if (framelatency == 10){
-		return true;
-	}
-	for (auto & unit : meleeUnits)
-	{
-
-		if (unit->getDistance(meleeUnits.getPosition()) > 20 && unit->getDistance(order.getPosition())<(meleeUnits.getPosition() - meleeUnits.getPosition()).getLength() || unit->getDistance(order.getPosition())<35) {
-			unit->stop();
-			continue;
-		}
-		double x = unit->getPosition().x;
-		double y = unit->getPosition().y;
-		//double angle = 30*PI*i / 180.0;
-		//x = cir_x-r * cos(angle);
-		//y = cir_y-r * sin(angle);
-		BWAPI::Position p;
-		int ang1 = 0;
-		int ang2 = 120;
-		int ang3 = 210;
-		int ang4 = 300;
-		//p.x = (x + cir_x) / 2 - i;
-		//p.y = (y + cir_y) / 2 - i;
-
-		p.x = cir_x - 30;
-		p.y = cir_y + i;
-		Micro::SmartMove(unit, p);
-		i += 2;
-
-	}
-	i = -5;
-	return false;
-}
 
 void MeleeManager::executeMicro(const BWAPI::Unitset & targets)
 {
-	if (true||formSquad(targets)){
-		assignTargetsOld(targets);
+	if (formSquad(targets, 32 * 6, 32 * 9, 90, 40)){
+		formed = true;
 	}
+	else {
+		formed = false;
+	}
+	assignTargetsOld(targets);
 }
 //get real priority
 double MeleeManager::getRealPriority(BWAPI::Unit attacker, BWAPI::Unit target)

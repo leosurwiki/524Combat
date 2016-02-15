@@ -22,6 +22,7 @@ class Squad
 	std::string         _regroupStatus;
     int                 _lastRetreatSwitch;
     bool                _lastRetreatSwitchVal;
+	int					_lastFormedSwitch;
     size_t              _priority;
 	
 	SquadOrder          _order;

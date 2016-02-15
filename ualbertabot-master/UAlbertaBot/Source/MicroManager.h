@@ -24,6 +24,7 @@ struct GroundThreat
 class MicroManager
 {
 	BWAPI::Unitset  _units;
+	bool _formation;
 
 protected:
 	
@@ -38,13 +39,18 @@ protected:
     
 
 public:
+	bool				formed;
+
 						MicroManager();
     virtual				~MicroManager(){}
 
 	const BWAPI::Unitset & getUnits() const;
+	bool MicroManager::getFormation();
+	bool MicroManager::formSquad(const BWAPI::Unitset & targets, int dist, int radius, double angle, int interval);
 	BWAPI::Position     calcCenter() const;
 
 	void				setUnits(const BWAPI::Unitset & u);
+	void				setFormation(bool f);
 	void				execute(const SquadOrder & order);
 	void				regroup(const BWAPI::Position & regroupPosition) const;
 

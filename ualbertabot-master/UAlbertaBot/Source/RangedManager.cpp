@@ -9,6 +9,12 @@ RangedManager::RangedManager()
 
 void RangedManager::executeMicro(const BWAPI::Unitset & targets)
 {
+	if (formSquad(targets, 32 * 10, 32 * 9, 90, 40)){
+		formed = true;
+	}
+	else {
+		formed = false;
+	}
 	assignTargetsOld(targets);
 }
 //get real priority

@@ -5,6 +5,7 @@ using namespace UAlbertaBot;
 
 Squad::Squad()
 : _lastRetreatSwitch(0)
+, _lastFormedSwitch(-100)
 , _lastRetreatSwitchVal(false)
 , _priority(0)
 , _name("Default")
@@ -16,6 +17,7 @@ Squad::Squad(const std::string & name, SquadOrder order, size_t priority)
 : _name(name)
 , _order(order)
 , _lastRetreatSwitch(0)
+, _lastFormedSwitch(-100)
 , _lastRetreatSwitchVal(false)
 , _priority(priority)
 {
@@ -69,6 +71,33 @@ void Squad::update()
 
 		_detectorManager.setUnitClosestToEnemy(unitClosestToEnemy());
 		_detectorManager.execute(_order);
+
+		//define whether each manager is formed already or is empty
+		bool formed = (_meleeManager.formed || _meleeManager.getUnits().size() == 0) && (_rangedManager.formed || _rangedManager.getUnits().size() == 0);
+		int switchTime = 100;
+		// we should not form again unless 5 seconds have passed since a finished formation
+		if (formed)
+		{
+			if (BWAPI::Broodwar->getFrameCount() - _lastFormedSwitch > switchTime)
+			{
+				_lastFormedSwitch = BWAPI::Broodwar->getFrameCount();
+				_meleeManager.setFormation(false);
+				_rangedManager.setFormation(false);
+			}
+		}
+		else
+		{
+			if (BWAPI::Broodwar->getFrameCount() - _lastFormedSwitch <= switchTime)
+			{
+				_meleeManager.setFormation(false);
+				_rangedManager.setFormation(false);
+			}
+			else
+			{
+				_meleeManager.setFormation(true);
+				_rangedManager.setFormation(true);
+			}
+		}
 	}
 }
 
