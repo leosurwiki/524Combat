@@ -15,7 +15,7 @@ MeleeManager::MeleeManager()
 
 void MeleeManager::executeMicro(const BWAPI::Unitset & targets)
 {
-	if (formSquad(targets, 32 * 6, 32 * 9, 90, 40)){
+	if (formSquad(targets, 32 * 5, 32 * 8, 90, 35)){
 		formed = true;
 	}
 	else {

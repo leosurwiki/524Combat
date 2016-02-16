@@ -138,17 +138,14 @@ bool MicroManager::formSquad(const BWAPI::Unitset & targets, int dist, int radiu
 
 	//do not from squad when fighting or close to enemy
 	for (auto & unit : meleeUnits){
-		if (unit->isUnderAttack() || unit->isAttackFrame() || targets.size() == 0)
-			attacked = true;
-	}
-	for (auto & target : targets){
-		if (target->getDistance(mpos) < 80)
+		if (unit->isUnderAttack() || unit->isAttackFrame() || targets.size() == 0|| unit->getDistance(tpos) < 80)
 			attacked = true;
 	}
 	if (attacked) {
-		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Attacked, Stop Formation");
+		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Attacked or No targets, Stop Formation");
 		return false;
 	}
+	//Formation is set false by Squad for 5 seconds after formation finished once
 	if (!getFormation()){
 		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Finished Formation");
 		return false;
@@ -181,19 +178,25 @@ bool MicroManager::formSquad(const BWAPI::Unitset & targets, int dist, int radiu
 	BWAPI::Position tmp;
 	int try_time = 0;
 	int r = radius;
-	double final_ang;
 	int total_dest_dist = 0;
+	int num_assigned = 0;
 
 	while (unassigned.size() > 0 && try_time < 5){
 		double ang_interval = interval * 1.0 / r;
-		int max_units = (int)(ang / ang_interval);
+		double final_ang;
+		int num_to_assign;
+		int max_units = (int)(ang / ang_interval) + 1;
 		if (unassigned.size() < (unsigned)max_units){
-			final_ang = ang_interval * unassigned.size();
+			num_to_assign = unassigned.size();
+			final_ang = ang_interval * num_to_assign;
 		}
 		else {
+			num_to_assign = max_units;
 			final_ang = ang;
 		}
-		for (double a = m_ang - final_ang / 2; a <= m_ang + final_ang / 2; a += ang_interval) {
+		for (int i = 0; i < num_to_assign; i++) {
+			//assign from two ends to middle
+			double a = m_ang + pow(-1, i % 2)*(final_ang / 2 - (i / 2)*ang_interval);
 			int min_dist = MAXINT;
 			BWAPI::Unit closest_unit = nullptr;
 			tmp.x = (int)(cx + r * cos(a));
@@ -205,22 +208,30 @@ bool MicroManager::formSquad(const BWAPI::Unitset & targets, int dist, int radiu
 					closest_unit = unit;
 				}
 			}
+			//if it's a unit far away from fight, do not assign it to a position
+			if (closest_unit && min_dist > 300){
+				unassigned.erase(closest_unit);
+				continue;
+			}
 			if (tmp.isValid() && closest_unit){
 				BWAPI::Broodwar->drawLineMap(closest_unit->getPosition(), tmp, BWAPI::Colors::Red);
 				Micro::SmartMove(closest_unit, tmp);
 				unassigned.erase(closest_unit);
 				//find the total distance between unit and destination
 				total_dest_dist += min_dist;
-			}		}
+				num_assigned++;
+			}		
+		}
 		r += 40;
 		try_time++;
 	}
 
 	//if max destination distance less than 32, means forming has been finished
-	if (total_dest_dist / (meleeUnits.size() - unassigned.size()) <= 32){
+	if (num_assigned > 0 && total_dest_dist / num_assigned <= 32){
 		return true;
 	}
 	else {
+		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Forming");
 		return false;
 	}
 }
