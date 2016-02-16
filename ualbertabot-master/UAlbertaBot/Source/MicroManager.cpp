@@ -145,6 +145,13 @@ bool MicroManager::formSquad(const BWAPI::Unitset & targets, int dist, int radiu
 		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Attacked or No targets, Stop Formation");
 		return false;
 	}
+	//if there is a building near the unit, do not form
+	for (auto & target : targets){
+		auto type = target->getType();
+		if (type.isBuilding()){
+			return false;
+		}
+	}
 	//Formation is set false by Squad for 5 seconds after formation finished once
 	if (!getFormation()){
 		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Finished Formation");
