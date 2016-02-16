@@ -10,7 +10,7 @@ class MeleeManager : public MicroManager
 {
 
 public:
-	BWAPI::Position centerOfAttackers;
+	BWAPI::Position pullPosition;
 	MeleeManager();
 	~MeleeManager() {}
 	void executeMicro(const BWAPI::Unitset & targets);

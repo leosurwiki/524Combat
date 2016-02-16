@@ -126,15 +126,6 @@ void RangedManager::assignTargetsOld(const BWAPI::Unitset & targets)
 			if (!rangedUnitTargets.empty())
 			{
 				
-				
-				if (rangedUnit->getShields() < Config::Micro::RetreatMeleeUnitShields)
-				{
-					BWAPI::Position fleeTo(centerOfAttackers);
-					fleeTo.x = fleeTo.x+(fleeTo.x - rangedUnit->getPosition().x)*1.5;
-					fleeTo.y = fleeTo.y+(fleeTo.y - rangedUnit->getPosition().y)*1.5;
-					Micro::SmartMove(rangedUnit, fleeTo);
-					continue;
-				}
 				// find the best target for this dragoon
 				auto targetIdx = attacker2target.find(rangedUnit);
 				BWAPI::Unit target = targetIdx == attacker2target.end() ? getTarget(rangedUnit, rangedUnitTargets) : targetIdx->first;
@@ -149,13 +140,12 @@ void RangedManager::assignTargetsOld(const BWAPI::Unitset & targets)
 				{
 					if (rangedUnit->getType() == BWAPI::UnitTypes::Zerg_Mutalisk || rangedUnit->getType() == BWAPI::UnitTypes::Terran_Vulture)
 					{
-						Micro::SmartAttackUnit(rangedUnit, target);
+						Micro::MutaDanceTarget(rangedUnit, target);
 					}
 					else
 					{
 						BWAPI::Broodwar->drawTextScreen(200, 350, "%s", "kite target");
-						//Micro::SmartKiteTarget(rangedUnit, target);
-						Micro::SmartAttackUnit(rangedUnit, target);
+						Micro::SmartKiteTarget(rangedUnit, target);
 					}
 				}
 				else

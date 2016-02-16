@@ -73,6 +73,7 @@ bool MeleeManager::formSquad(const BWAPI::Unitset & targets)
 
 void MeleeManager::executeMicro(const BWAPI::Unitset & targets)
 {
+	pullPosition = calcCenter();
 	if (true||formSquad(targets)){
 		assignTargetsOld(targets);
 	}
@@ -91,12 +92,8 @@ std::unordered_map<BWAPI::Unit, BWAPI::Unit> MeleeManager::assignEnemy(const BWA
 	std::unordered_map<BWAPI::Unit, BWAPI::Unit> attacker2target;
 	std::vector<PairEdge> edges(meleeUnits.size()*meleeUnitTargets.size());
 	int top = 0;
-	centerOfAttackers.x = 0;
-	centerOfAttackers.y = 0;
 	for (auto &attacker : meleeUnits)
 	{
-		centerOfAttackers.x += attacker->getPosition().x;
-		centerOfAttackers.y += attacker->getPosition().y;
 		for (auto &target : meleeUnitTargets)
 		{
 			edges[top].attacker = attacker;
@@ -105,9 +102,6 @@ std::unordered_map<BWAPI::Unit, BWAPI::Unit> MeleeManager::assignEnemy(const BWA
 			edges[top++].distance = -getRealPriority(attacker, target);
 		}
 	}
-	centerOfAttackers.x /= meleeUnits.size();
-	centerOfAttackers.y /= meleeUnits.size();
-	BWAPI::Broodwar->drawCircleMap(centerOfAttackers, 20, BWAPI::Colors::Brown, true);
 	sort(edges.begin(), edges.end());
 	edges.resize(edges.size() / 12);
 	sort(edges.begin(), edges.end(), [](PairEdge a, PairEdge b)
@@ -198,9 +192,9 @@ void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
             // run away if we meet the retreat critereon
 			if (meleeUnitShouldRetreat(meleeUnit, targets) && meleeUnit->isUnderAttack())
             {
-                BWAPI::Position fleeTo(centerOfAttackers);
-				fleeTo.x = (-fleeTo.x + meleeUnit->getPosition().x*19) / 20;
-				fleeTo.y = (-fleeTo.y + meleeUnit->getPosition().y*19) / 20;
+				BWAPI::Position fleeTo(pullPosition);
+				fleeTo.x = (fleeTo.x - meleeUnit->getPosition().x)*2 + meleeUnit->getPosition().x;
+				fleeTo.y = (fleeTo.y - meleeUnit->getPosition().y)*2 + meleeUnit->getPosition().y;
                 Micro::SmartMove(meleeUnit, fleeTo);
             }
 			// if there are targets
@@ -375,7 +369,7 @@ bool MeleeManager::meleeUnitShouldRetreat(BWAPI::Unit meleeUnit, const BWAPI::Un
         if (groundWeaponRange >= 64 )
         {
 			//the possibility of retreat from rangeunits is determined by their distance and weaponrange
-			return rand() % 100<std::max(0,100-((int) unit->getDistance(meleeUnit) - groundWeaponRange));
+			return rand() % 100<std::max(0,60-((int) unit->getDistance(meleeUnit) - groundWeaponRange));
         }
     }
 
