@@ -15,17 +15,12 @@ MeleeManager::MeleeManager()
 
 void MeleeManager::executeMicro(const BWAPI::Unitset & targets)
 {
-<<<<<<< HEAD
 	if (formSquad(targets, 32 * 5, 32 * 8, 90, 35)){
 		formed = true;
 	}
 	else {
 		formed = false;
-=======
-	pullPosition = calcCenter();
-	if (true||formSquad(targets)){
-		assignTargetsOld(targets);
->>>>>>> origin/master
+		pullPosition = calcCenter();
 	}
 	assignTargetsOld(targets);
 }
