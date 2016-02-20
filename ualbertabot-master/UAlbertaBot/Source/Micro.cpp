@@ -331,8 +331,22 @@ void Micro::MutaDanceTarget(BWAPI::Unit muta, BWAPI::Unit target)
 	{
 		// Determine direction to flee
 		// Determine point to flee to
+		moveToPosition = moveToPosition.makeValid();
+		//BWAPI::Region cur = muta->getRegion();
+		//BWAPI::Region next = BWAPI::Broodwar->getRegionAt(moveToPosition);
+		//cur->isHigherGround();
+		BWAPI::WalkPosition WP(moveToPosition);
+		//BWAPI::Broodwar->isWalkable();
+		if (muta->isStuck() || !BWAPI::Broodwar->isWalkable(WP)){
+			moveToPosition = muta->getPosition() -  fleeVector- fleeVector;
+			muta->rightClick(moveToPosition);
+			Micro::SmartMove(muta, moveToPosition); 
+			
+			return;
+		}
 		if (moveToPosition.isValid())
 		{
+
 			muta->rightClick(moveToPosition);
 		}
 	}

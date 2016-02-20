@@ -155,7 +155,8 @@ void RangedManager::assignTargetsOld(const BWAPI::Unitset & targets)
 					{
 						BWAPI::Broodwar->drawTextScreen(200, 350, "%s", "kite target");
 						//Micro::SmartKiteTarget(rangedUnit, target);
-						Micro::SmartAttackUnit(rangedUnit, target);
+						//Micro::SmartAttackUnit(rangedUnit, target);
+						Micro::MutaDanceTarget(rangedUnit, target);
 					}
 				}
 				else
