@@ -21,6 +21,7 @@ void MeleeManager::executeMicro(const BWAPI::Unitset & targets)
 	else {
 		formed = false;
 
+
 	}
 	assignTargetsOld(targets);
 }
