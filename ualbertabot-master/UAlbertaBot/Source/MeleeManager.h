@@ -10,7 +10,7 @@ class MeleeManager : public MicroManager
 {
 
 public:
-	BWAPI::Position centerOfAttackers;
+	BWAPI::Position pullPosition;
 	MeleeManager();
 	~MeleeManager() {}
 	void executeMicro(const BWAPI::Unitset & targets);
@@ -26,7 +26,6 @@ public:
 	double getRealPriority(BWAPI::Unit attacker, BWAPI::Unit target);
 	bool compareTwoTargets(BWAPI::Unit attacker, BWAPI::Unit target1, BWAPI::Unit target2);
 	int myMicroConstruct(const BWAPI::Unitset & attackers, const BWAPI::Unitset & targets);
-	bool formSquad(const BWAPI::Unitset & targets);
 	std::unordered_map<BWAPI::Unit, BWAPI::Unit> assignEnemy(const BWAPI::Unitset &,const BWAPI::Unitset & );
 };
 }

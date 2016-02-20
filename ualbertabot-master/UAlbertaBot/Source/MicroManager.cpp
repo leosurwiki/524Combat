@@ -2,7 +2,7 @@
 
 using namespace UAlbertaBot;
 
-MicroManager::MicroManager() 
+MicroManager::MicroManager() :_formation(true)
 {
 }
 
@@ -10,6 +10,13 @@ void MicroManager::setUnits(const BWAPI::Unitset & u)
 { 
 	_units = u; 
 }
+
+//set whether it needs to form
+void MicroManager::setFormation(bool f)
+{
+	_formation = f;
+}
+
 
 BWAPI::Position MicroManager::calcCenter() const
 {
@@ -115,6 +122,125 @@ void MicroManager::execute(const SquadOrder & inputOrder)
 const BWAPI::Unitset & MicroManager::getUnits() const 
 { 
     return _units; 
+}
+
+bool MicroManager ::getFormation() {
+	return _formation;
+}
+
+//dist is distance between middle unit and target gravity center, interval is length of arc between two units
+bool MicroManager::formSquad(const BWAPI::Unitset & targets, int dist, int radius, double angle, int interval)
+{
+	const BWAPI::Unitset & meleeUnits = getUnits();
+	bool attacked = false;
+	BWAPI::Position tpos = targets.getPosition();
+	BWAPI::Position mpos = meleeUnits.getPosition();
+
+	//do not from squad when fighting or close to enemy
+	for (auto & unit : meleeUnits){
+		if (unit->isUnderAttack() || unit->isAttackFrame() || targets.size() == 0|| unit->getDistance(tpos) < 80)
+			attacked = true;
+	}
+	if (attacked) {
+		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Attacked or No targets, Stop Formation");
+		return false;
+	}
+	//if there is a building near the unit, do not form
+	for (auto & target : targets){
+		auto type = target->getType();
+		if (type.isBuilding()){
+			return false;
+		}
+	}
+	//Formation is set false by Squad for 5 seconds after formation finished once
+	if (!getFormation()){
+		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Finished Formation");
+		return false;
+	}
+	//BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Forming");
+
+	const double PI = 3.14159265;
+
+	double ang = angle / 180 * PI;
+
+	//the angle of mid_point on arc
+	double m_ang = atan2(mpos.y - tpos.y, mpos.x - tpos.x);
+	//circle center
+	int cx = (int)(tpos.x - (radius-dist) * cos(m_ang));
+	int cy = (int)(tpos.y - (radius-dist) * sin(m_ang));
+	BWAPI::Position c;
+	c.x = cx; c.y = cy;
+	//mid_point on arc
+	BWAPI::Position m;
+	m.x = (int)(cx + radius*cos(m_ang));
+	m.y = (int)(cy + radius*sin(m_ang));
+	BWAPI::Broodwar->drawLineMap(c, m, BWAPI::Colors::Yellow);
+
+	BWAPI::Unitset unassigned;
+	for (auto & unit : meleeUnits){
+		unassigned.insert(unit);
+	}
+
+	//move every positions on the arc to the closest unit
+	BWAPI::Position tmp;
+	int try_time = 0;
+	int r = radius;
+	int total_dest_dist = 0;
+	int num_assigned = 0;
+
+	while (unassigned.size() > 0 && try_time < 5){
+		double ang_interval = interval * 1.0 / r;
+		double final_ang;
+		int num_to_assign;
+		int max_units = (int)(ang / ang_interval) + 1;
+		if (unassigned.size() < (unsigned)max_units){
+			num_to_assign = unassigned.size();
+			final_ang = ang_interval * num_to_assign;
+		}
+		else {
+			num_to_assign = max_units;
+			final_ang = ang;
+		}
+		for (int i = 0; i < num_to_assign; i++) {
+			//assign from two ends to middle
+			double a = m_ang + pow(-1, i % 2)*(final_ang / 2 - (i / 2)*ang_interval);
+			int min_dist = MAXINT;
+			BWAPI::Unit closest_unit = nullptr;
+			tmp.x = (int)(cx + r * cos(a));
+			tmp.y = (int)(cy + r * sin(a));
+			for (auto & unit : unassigned){
+				int d = unit->getDistance(tmp);
+				if (d < min_dist){
+					min_dist = d;
+					closest_unit = unit;
+				}
+			}
+			//if it's a unit far away from fight, do not assign it to a position
+			if (closest_unit && min_dist > 300){
+				unassigned.erase(closest_unit);
+				continue;
+			}
+			if (tmp.isValid() && closest_unit){
+				BWAPI::Broodwar->drawLineMap(closest_unit->getPosition(), tmp, BWAPI::Colors::Red);
+				Micro::SmartMove(closest_unit, tmp);
+				unassigned.erase(closest_unit);
+				//find the total distance between unit and destination
+				total_dest_dist += min_dist;
+				num_assigned++;
+			}		
+		}
+		r += 40;
+		try_time++;
+	}
+
+	//if max destination distance less than 32, means forming has been finished
+	if (num_assigned > 0 && total_dest_dist / num_assigned <= 32){
+		return true;
+	}
+	else {
+		BWAPI::Broodwar->drawTextScreen(200, 340, "%s", "Forming");
+		return false;
+	}
 }
 
 void MicroManager::regroup(const BWAPI::Position & regroupPosition) const

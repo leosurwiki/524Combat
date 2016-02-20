@@ -12,70 +12,17 @@ MeleeManager::MeleeManager()
 { 
 
 }
-static int framelatency = 0;
-
-bool MeleeManager::formSquad(const BWAPI::Unitset & targets)
-{
-	const BWAPI::Unitset & meleeUnits = getUnits();
-	int size = meleeUnits.size();
-	bool attacked = false;
-	BWAPI::Position tpos = targets.getPosition();
-	BWAPI::Position mpos = meleeUnits.getPosition();
-
-	for (auto & unit : meleeUnits)
-	{
-		if (unit->isUnderAttack() || unit->isAttackFrame() || targets.size() == 0 )attacked = true;
-	}
-	if (attacked) return true;
-	BWAPI::Broodwar->drawTextScreen(200, 350, "%s", " not under attack, form squad");
-
-	int framelatency = 0;
-	const double PI = 3.14159265;
-	int i = -10;
-
-	//int cir_x = (4 * mpos.x + tpos.x) / 5;
-	//int cir_y = (4 * mpos.y + tpos.y) / 5;
-	int cir_x = order.getPosition().x;
-	int cir_y = order.getPosition().y;
-	framelatency++;
-	if (framelatency == 10){
-		return true;
-	}
-	for (auto & unit : meleeUnits)
-	{
-
-		if (unit->getDistance(meleeUnits.getPosition()) > 20 && unit->getDistance(order.getPosition())<(meleeUnits.getPosition() - meleeUnits.getPosition()).getLength() || unit->getDistance(order.getPosition())<35) {
-			unit->stop();
-			continue;
-		}
-		double x = unit->getPosition().x;
-		double y = unit->getPosition().y;
-		//double angle = 30*PI*i / 180.0;
-		//x = cir_x-r * cos(angle);
-		//y = cir_y-r * sin(angle);
-		BWAPI::Position p;
-		int ang1 = 0;
-		int ang2 = 120;
-		int ang3 = 210;
-		int ang4 = 300;
-		//p.x = (x + cir_x) / 2 - i;
-		//p.y = (y + cir_y) / 2 - i;
-
-		p.x = cir_x - 30;
-		p.y = cir_y + i;
-		Micro::SmartMove(unit, p);
-		i += 2;
-
-	}
-	i = -5;
-	return false;
-}
 
 void MeleeManager::executeMicro(const BWAPI::Unitset & targets)
 {
-	if (true||formSquad(targets)){
-		assignTargetsOld(targets);
+	if (formSquad(targets, 32 * 5, 32 * 8, 90, 35)){
+		formed = true;
 	}
+	else {
+		formed = false;
+
+	}
+	assignTargetsOld(targets);
 }
 //get real priority
 double MeleeManager::getRealPriority(BWAPI::Unit attacker, BWAPI::Unit target)
@@ -91,12 +38,8 @@ std::unordered_map<BWAPI::Unit, BWAPI::Unit> MeleeManager::assignEnemy(const BWA
 	std::unordered_map<BWAPI::Unit, BWAPI::Unit> attacker2target;
 	std::vector<PairEdge> edges(meleeUnits.size()*meleeUnitTargets.size());
 	int top = 0;
-	centerOfAttackers.x = 0;
-	centerOfAttackers.y = 0;
 	for (auto &attacker : meleeUnits)
 	{
-		centerOfAttackers.x += attacker->getPosition().x;
-		centerOfAttackers.y += attacker->getPosition().y;
 		for (auto &target : meleeUnitTargets)
 		{
 			edges[top].attacker = attacker;
@@ -105,9 +48,6 @@ std::unordered_map<BWAPI::Unit, BWAPI::Unit> MeleeManager::assignEnemy(const BWA
 			edges[top++].distance = -getRealPriority(attacker, target);
 		}
 	}
-	centerOfAttackers.x /= meleeUnits.size();
-	centerOfAttackers.y /= meleeUnits.size();
-	BWAPI::Broodwar->drawCircleMap(centerOfAttackers, 20, BWAPI::Colors::Brown, true);
 	sort(edges.begin(), edges.end());
 	edges.resize(edges.size() / 12);
 	sort(edges.begin(), edges.end(), [](PairEdge a, PairEdge b)
@@ -198,9 +138,9 @@ void MeleeManager::assignTargetsOld(const BWAPI::Unitset & targets)
             // run away if we meet the retreat critereon
 			if (meleeUnitShouldRetreat(meleeUnit, targets) && meleeUnit->isUnderAttack())
             {
-                BWAPI::Position fleeTo(centerOfAttackers);
-				fleeTo.x = (-fleeTo.x + meleeUnit->getPosition().x*19) / 20;
-				fleeTo.y = (-fleeTo.y + meleeUnit->getPosition().y*19) / 20;
+				BWAPI::Position fleeTo(pullPosition);
+				fleeTo.x = (fleeTo.x - meleeUnit->getPosition().x)*2 + meleeUnit->getPosition().x;
+				fleeTo.y = (fleeTo.y - meleeUnit->getPosition().y)*2 + meleeUnit->getPosition().y;
                 Micro::SmartMove(meleeUnit, fleeTo);
             }
 			// if there are targets
@@ -375,7 +315,7 @@ bool MeleeManager::meleeUnitShouldRetreat(BWAPI::Unit meleeUnit, const BWAPI::Un
         if (groundWeaponRange >= 64 )
         {
 			//the possibility of retreat from rangeunits is determined by their distance and weaponrange
-			return rand() % 100<std::max(0,100-((int) unit->getDistance(meleeUnit) - groundWeaponRange));
+			return rand() % 100<std::max(0,60-((int) unit->getDistance(meleeUnit) - groundWeaponRange));
         }
     }
 
