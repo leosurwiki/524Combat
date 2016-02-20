@@ -9,12 +9,14 @@ RangedManager::RangedManager()
 
 void RangedManager::executeMicro(const BWAPI::Unitset & targets)
 {
-	if (formSquad(targets, 32 * 10, 32 * 9, 90, 40)){
+	/*
+	if (formSquad(targets, 32 * 7, 32 * 9, 90, 40)){
 		formed = true;
 	}
 	else {
 		formed = false;
 	}
+	*/
 	assignTargetsOld(targets);
 }
 //get real priority
@@ -70,7 +72,7 @@ std::unordered_map<BWAPI::Unit, BWAPI::Unit> RangedManager::assignEnemy(const BW
 		{
 			sum++;
 			//assign at most 7 units attack
-			BWAPI::Broodwar <<( idx->target->getHitPoints()+idx->target->getShields()) / idx->attacker->getType().groundWeapon().damageAmount() << std::endl;
+			//BWAPI::Broodwar <<( idx->target->getHitPoints()+idx->target->getShields()) / idx->attacker->getType().groundWeapon().damageAmount() << std::endl;
 			if (sum<std::min(6,std::max(idx->target->getHitPoints()/idx->attacker->getType().groundWeapon().damageAmount()-1,1)))
 			{
 				idx->attacker = nullptr;
